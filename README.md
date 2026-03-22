@@ -2,8 +2,6 @@
 
 **Longitudinal NLP research on a personal corpus of 1,573 AI and human conversations.**
 
-What happens when you turn NLP loose on a year of your own thinking?
-
 This project applies computational linguistics to a personal corpus of conversational data collected over 11 months (March 2025 – February 2026). The corpus includes AI dialogue, human conversation transcripts, technical problem-solving, creative writing, philosophical inquiry, and ordinary searching. The analysis spans structural, thematic, and longitudinal dimensions.
 
 ---

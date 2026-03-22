@@ -1,0 +1,50 @@
+# Raw conversation exports (personal data)
+conversations/
+
+# All data files (code-only repo)
+subtext/data/
+
+# Claude Code local settings
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Environment / secrets
+.env
+.env.*
+*.key
+*.pem
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# spaCy models (large, downloadable)
+en_core_web_*/
+
+# Outputs (regenerable from pipeline)
+subtext/outputs/
+
+# Spec docs (not shipping for now)
+PHASE1_DATA_INGESTION.md
+PHASE2_DATA_QUALITY.md
+MODULE_3_1_*.md
+module_3_2_*.md
+
+# Misc
+unicode_check.txt

@@ -1,0 +1,26 @@
+{
+    "timezone": "America/Chicago",
+    "bulk_input_token_threshold": 10000,
+    "min_messages_for_analysis": 2,
+    "quality_score_weights": {
+        "has_timestamps": 0.25,
+        "has_text": 0.25,
+        "not_empty": 0.20,
+        "reasonable_length": 0.15,
+        "not_truncated": 0.15
+    },
+    "model_era_boundaries": {
+        "gpt35_era_end": "2023-03-14",
+        "gpt4_launch": "2023-03-14",
+        "gpt4_turbo_launch": "2023-11-06",
+        "gpt4o_launch": "2024-05-13",
+        "gpt4o_mini_launch": "2024-07-18",
+        "o1_launch": "2024-09-12",
+        "o3_mini_launch": "2025-01-31"
+    },
+    "default_system_prompts_fingerprints": [
+        "You are ChatGPT",
+        "You are a helpful assistant"
+    ],
+    "random_seed": 42
+}

@@ -2,7 +2,7 @@
 
 **Longitudinal NLP research on a personal corpus of 1,573 AI and human conversations.**
 
-research log: https://www.notion.so/32c77cb7d15d819e995edbe36c169756
+research log: https://www.notion.so/32c77cb7d15d81e88606ecec5566e59f
 
 This project applies computational linguistics to a personal corpus of conversational data collected over 11 months (March 2025 – February 2026). The corpus includes AI dialogue, human conversation transcripts, technical problem-solving, creative writing, philosophical inquiry, and ordinary searching. The analysis spans structural, thematic, and longitudinal dimensions.
 

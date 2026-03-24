@@ -5,4 +5,6 @@ matplotlib>=3.8
 seaborn>=0.13
 plotly>=5.18
 networkx>=3.2
+scikit-learn>=1.4
+lightgbm>=4.2
 tqdm>=4.66

@@ -20,8 +20,8 @@ The raw data is a ChatGPT export — a ZIP archive containing `conversations.jso
 
 The project runs as a sequential pipeline. Each step reads from the output of the previous step and writes structured output (Parquet, JSON, HTML) to `outputs/`.
 
-| # | Notebook | Question |
-|---|----------|----------|
+| # | Script | Question |
+|---|--------|----------|
 | 01 | `extract` | Can I reliably decompress, parse, and linearize a DAG-structured ChatGPT export? |
 | 02 | `parse` | What does the corpus look like as structured data? (→ `messages.parquet` + `conversations.parquet`) |
 | 03 | `clean` | What's broken? Nulls, duplicates, truncations, encoding, empty conversations, plugin artifacts. |
@@ -35,15 +35,19 @@ The project runs as a sequential pipeline. Each step reads from the output of th
 | 10 | `opening_taxonomy` | How do conversations begin? Classify first user message — question, command, statement, fragment, code — via spaCy POS tagging. |
 | 11 | `topics` | What latent thematic structure exists, and how do themes shift over time? BERTopic + sentence-transformers + UMAP + HDBSCAN. |
 | 12 | `summarize` | Compression layer — conversation-level summaries for downstream analysis. |
+| 13 | `functional_classify` | What is the user doing in each conversation? 12-category functional taxonomy via Claude Haiku Batch API. |
+| 14 | `emotional_state` | What emotional states appear across conversations? 8-category classification + GoEmotions baseline validation. |
+| 15 | `goemotions_baseline` | Local GoEmotions transformer baseline — zero-API-cost emotion detection for comparison with LLM classifications. |
+| 16 | `length_weight_analysis` | How do count-based vs message-weighted distributions differ? Reveals categories inflated by short conversations. |
+| 17 | `frame_adoption` | How does the user respond to AI framing? Message-level classification of adopt/extend/redirect/reject/ignore/steer. |
 
 ### Planned
 
 | # | Module | Question |
 |---|--------|----------|
-| 13 | `embeddings` | Conversation-level embeddings (sentence-transformers) → vector store (FAISS) for semantic search and retrieval. |
-| 14 | `knowledge_graph` | What does the relational structure of a personal corpus look like extracted purely from language? spaCy + NetworkX + Louvain. |
-| 15 | `longitudinal` | How does cognition change over time? Vocabulary evolution, complexity metrics, inflection detection (PELT via ruptures). |
-| 16 | `llm_classify` | Qualitative classification via Claude Batch API — functional taxonomy, rhetorical moves, abstraction tiers, Bloom's taxonomy, emotional state. |
+| — | `embeddings` | Conversation-level embeddings (sentence-transformers) → vector store (FAISS) for semantic search and retrieval. |
+| — | `knowledge_graph` | What does the relational structure of a personal corpus look like extracted purely from language? spaCy + NetworkX + Louvain. |
+| — | `longitudinal` | How does cognition change over time? Vocabulary evolution, complexity metrics, inflection detection (PELT via ruptures). |
 
 ---
 
@@ -62,10 +66,11 @@ chatgpt_export.zip
 ├── 11_topics     → topic_model/ + topic_viz.html
 ├── 12_summarize  → summaries.parquet
 │
-├── 13_embeddings → embeddings.npy (planned)
-├── 14_kg         → knowledge_graph.json (planned)
-├── 15_longit     → timeline.json + inflection_points.json (planned)
-└── 16_classify   → classifications.parquet (planned)
+├── 13_functional → functional_classifications.parquet
+├── 14_emotional  → emotional_states.parquet
+├── 15_goemotions → goemotions_baseline (local transformer)
+├── 16_length_wt  → weighted distribution figures
+└── 17_frame      → frame_adoption.parquet
 ```
 
 ### Core Schemas

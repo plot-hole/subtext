@@ -2,14 +2,15 @@
 Module 3.2e: Frame Adoption Classification
 Script: 17_frame_adoption.py
 
-Classifies every substantive user message by how it responds to the AI's
-preceding output — adopt, extend, redirect, reject, ignore, or steer.
+Classifies every user message by how it responds to the AI's preceding
+output — adopt, extend, redirect, reject, ignore, or steer.
 This is the first message-level classification in the pipeline; all prior
 modules operated at the conversation level.
 
-Uses Claude Haiku Batch API on message pairs (AI response + user reply).
-Messages under 20 tokens are rule-classified as short_response.
-Conversation openers are rule-classified as steer.
+Uses Claude Haiku via standard API on message pairs (AI response + user reply).
+All messages are sent to the LLM for classification — no rule-based
+short-message filtering. Conversation openers (no preceding AI message)
+are rule-classified as steer.
 
 Usage:
     export ANTHROPIC_API_KEY=sk-ant-...
@@ -24,8 +25,8 @@ Usage:
     # Use standard API with concurrency (if batch API is unavailable):
     python scripts/17_frame_adoption.py --standard-api --concurrency 20
 
-    # Adjust token threshold:
-    python scripts/17_frame_adoption.py --token-threshold 50
+    # Adjust token threshold (0 = classify everything via LLM):
+    python scripts/17_frame_adoption.py --token-threshold 0
 """
 
 import sys
@@ -78,7 +79,7 @@ PRICE_INPUT_PER_MTOK  = 0.40   # $0.80/MTok * 0.5 batch discount
 PRICE_OUTPUT_PER_MTOK = 2.00   # $4.00/MTok * 0.5 batch discount
 
 # -- Token limits for message pair construction ------------------------------
-DEFAULT_TOKEN_THRESHOLD    = 20
+DEFAULT_TOKEN_THRESHOLD    = 0
 MAX_ASSISTANT_TOKENS       = 500
 
 # -- Valid frame adoption labels ---------------------------------------------
@@ -91,7 +92,7 @@ VALID_FRAMES = [
     "steer",
 ]
 
-ALL_LABELS = VALID_FRAMES + ["short_response"]
+ALL_LABELS = VALID_FRAMES
 
 # Valid function/emotion labels (for cross-tab figures)
 VALID_FUNCTIONS = [
@@ -120,7 +121,6 @@ FRAME_COLORS = {
     "reject":         "#E15759",   # red — rejected AI frame
     "ignore":         "#BAB0AC",   # gray — didn't engage
     "steer":          "#4E79A7",   # blue — user driving
-    "short_response": "#D3D3D3",   # light gray — rule-classified
 }
 
 FUNC_COLORS = {
@@ -250,11 +250,11 @@ def load_data(token_threshold):
 def build_message_pair_inputs(msgs, user_msgs, token_threshold):
     """
     For each user message, determine classification method:
-      - rule: short_response (< token_threshold) or conversation_opener
-      - llm:  needs API call with preceding assistant message as context
+      - rule: conversation_opener (no preceding AI message) → steer
+      - llm:  all other messages get API call with preceding assistant message as context
 
     Returns:
-      rule_rows:  list of dicts for rule-classified messages
+      rule_rows:  list of dicts for rule-classified messages (openers only)
       llm_inputs: dict of custom_id -> {user_text, assistant_text, user_tokens, assistant_tokens}
     """
     print("\n== Building message pair inputs ========================================")
@@ -263,7 +263,6 @@ def build_message_pair_inputs(msgs, user_msgs, token_threshold):
     rule_rows  = []
     llm_inputs = {}
 
-    n_short   = 0
     n_opener  = 0
     n_llm     = 0
 
@@ -322,23 +321,6 @@ def build_message_pair_inputs(msgs, user_msgs, token_threshold):
             n_opener += 1
             continue
 
-        # Rule 2: short response → short_response
-        if user_toks < token_threshold:
-            rule_rows.append({
-                "conversation_id":           cid,
-                "message_index":             msg_idx,
-                "frame_adoption":            "short_response",
-                "frame_confidence":          float("nan"),
-                "classification_method":     "rule",
-                "is_conversation_opener":    False,
-                "user_tokens":               user_toks,
-                "assistant_tokens_preceding": preceding_assistant_toks,
-                "input_tokens":              0,
-                "output_tokens":             0,
-            })
-            n_short += 1
-            continue
-
         # LLM classification: truncate assistant message to MAX_ASSISTANT_TOKENS
         asst_truncated = preceding_assistant_text
         try:
@@ -360,9 +342,8 @@ def build_message_pair_inputs(msgs, user_msgs, token_threshold):
         n_llm += 1
 
     print(f"  Conversation openers (rule → steer)  : {n_opener:,}")
-    print(f"  Short responses (rule → short_response): {n_short:,}")
     print(f"  LLM classification needed             : {n_llm:,}")
-    print(f"  Total user messages                   : {n_opener + n_short + n_llm:,}")
+    print(f"  Total user messages                   : {n_opener + n_llm:,}")
 
     return rule_rows, llm_inputs
 
@@ -700,16 +681,13 @@ def make_figures(df, conv, config, func_class=None, emot_class=None):
 
 
 def _fig1_distribution(df):
-    """Frame Adoption Distribution — all labels including short_response."""
+    """Frame Adoption Distribution — all labels."""
     counts = df["frame_adoption"].astype(str).value_counts()
-    # Order: short_response first, then the 6 LLM labels sorted by count
+    # Order: 6 frame labels sorted by count, then any remaining (e.g. error)
     order = []
-    if "short_response" in counts.index:
-        order.append("short_response")
     for label in VALID_FRAMES:
         if label in counts.index:
             order.append(label)
-    # Add any remaining (e.g. error)
     for label in counts.index:
         if label not in order:
             order.append(label)
@@ -1312,7 +1290,6 @@ def generate_report(df, conv, batch_id, parse_errors, warnings_list,
     rule_msgs  = (df["classification_method"].astype(str) == "rule").sum()
     llm_msgs   = (df["classification_method"].astype(str) == "llm").sum()
     openers    = df["is_conversation_opener"].sum()
-    short      = (df["frame_adoption"].astype(str) == "short_response").sum()
     errors     = (df["frame_adoption"].astype(str) == "error").sum()
 
     # -- Distribution (all messages) --
@@ -1557,7 +1534,6 @@ def generate_report(df, conv, batch_id, parse_errors, warnings_list,
             "rule_classified":       int(rule_msgs),
             "llm_classified":        int(llm_msgs),
             "conversation_openers":  int(openers),
-            "short_responses":       int(short),
             "classification_errors": int(errors),
             "token_threshold":       token_threshold,
         },
@@ -1666,11 +1642,11 @@ def run_validation(df, conv, report):
     chk(f"All frame_adoption values valid ({invalid if invalid else 'none invalid'})",
         len(invalid) == 0)
 
-    # 7. Rule-classified messages are short_response or opener-steer
+    # 7. Rule-classified messages are opener-steer only
     rule_df = df[df["classification_method"].astype(str) == "rule"]
     rule_labels = set(rule_df["frame_adoption"].astype(str).unique())
-    chk("Rule-classified are short_response or steer",
-        rule_labels.issubset({"short_response", "steer"}))
+    chk("Rule-classified are steer only (openers)",
+        rule_labels.issubset({"steer"}))
 
     # 8. LLM-classified have method=llm
     llm_df = df[df["classification_method"].astype(str) == "llm"]

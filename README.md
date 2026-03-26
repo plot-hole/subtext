@@ -40,6 +40,9 @@ The project runs as a sequential pipeline. Each step reads from the output of th
 | 15 | `goemotions_baseline` | Local GoEmotions transformer baseline — zero-API-cost emotion detection for comparison with LLM classifications. |
 | 16 | `length_weight_analysis` | How do count-based vs message-weighted distributions differ? Reveals categories inflated by short conversations. |
 | 17 | `frame_adoption` | How does the user respond to AI framing? Message-level classification of adopt/extend/redirect/reject/ignore/steer. |
+| 18 | `vocab_transfer` | Which AI words and phrases permanently entered the user's vocabulary? Corpus-level NLP via spaCy + wordfreq — no API calls. |
+| 19 | `hypothesis_extraction` | What predictions, intuitions, assessments, and interpretations did the user express? Two-pass Batch API extraction with referent resolution. |
+| 20 | `belief_trajectories` | How do beliefs form, evolve, persist, and dissolve over time? Thread clustering + provenance classification + frame adoption overlay. |
 
 ### Planned
 
@@ -70,7 +73,10 @@ chatgpt_export.zip
 ├── 14_emotional  → emotional_states.parquet
 ├── 15_goemotions → goemotions_baseline (local transformer)
 ├── 16_length_wt  → weighted distribution figures
-└── 17_frame      → frame_adoption.parquet
+├── 17_frame      → frame_adoption.parquet
+├── 18_vocab      → vocab_transfer.parquet
+├── 19_hypothesis → hypotheses.parquet + hypothesis_catalog.csv
+└── 20_belief     → belief_threads.parquet + belief_provenance.parquet + belief_thread_summaries.parquet
 ```
 
 ### Core Schemas
@@ -144,6 +150,7 @@ Manual plausibility — pull random stratified samples from each cluster (seed=4
 | Embeddings | sentence-transformers | Conversation-level embeddings |
 | Topic Modeling | BERTopic + HDBSCAN + UMAP | Unsupervised thematic clustering |
 | Sentiment | vaderSentiment | Coarse sentiment baseline |
+| Word Frequency | wordfreq | Baseline lexical frequency for vocab transfer detection |
 | Change Detection | ruptures | PELT algorithm for inflection detection |
 | Visualization | plotly, matplotlib | Interactive timelines + static figures |
 | LLM | anthropic SDK | Claude Batch API for qualitative classification |

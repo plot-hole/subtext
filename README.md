@@ -26,7 +26,7 @@ The project runs as a sequential pipeline. Each step reads from the output of th
 | 02 | `parse` | What does the corpus look like as structured data? (→ `messages.parquet` + `conversations.parquet`) |
 | 03 | `clean` | What's broken? Nulls, duplicates, truncations, encoding, empty conversations, plugin artifacts. |
 | 04 | `edge_cases` | What doesn't fit? Massive paste-ins, multi-modal content, custom GPT sessions, tool-role messages. |
-| 04 | `report` | Data inventory dashboard — temporal heatmaps, volume time series, length distributions, role ratios. |
+| 04b | `report` | Data inventory dashboard — temporal heatmaps, volume time series, length distributions, role ratios. |
 | 05 | `enrich` | Token counts (tiktoken cl100k_base), code detection, quality scores, timestamp normalization. |
 | 06 | `pii_scan` | PII detection and anonymization — spaCy NER + regex patterns for names, emails, phone numbers, workplaces. |
 | 07 | `quality_report` | Automated quality audit — % null per column, completeness scores, coverage validation. |
@@ -123,7 +123,7 @@ The researcher-subject overlap is the primary methodological risk.
 | **Confirmation bias** | Automated analyses run before subjective interpretation. | Active — pipeline produces classifications and distributions before any manual review. |
 | **Cherry-picking** | Full distributions reported, not selected examples. | Active — every module outputs complete distributions. |
 | **Third-party privacy** | NER-based PII scan before any data leaves local environment. | Active — `06_pii_scan.py`. |
-| **Temporal confounds** | Conversations tagged by model era (GPT-3.5 → GPT-4 → GPT-4o); model_era included as covariate. | Active — `model_era` column present in 8 scripts. |
+| **Temporal confounds** | Conversations tagged by model era (GPT-4o → GPT-4.1 → GPT-5 → GPT-5.2); `model_era` included as covariate in 8 scripts. | Active — corpus spans 4 model eras with meaningful capability transitions. |
 
 ### Evaluation
 
@@ -145,11 +145,10 @@ There is no ground truth for what a conversation means. Evaluation relies on thr
 | Data | pandas, pyarrow | DataFrame ops + Parquet I/O |
 | NLP | spaCy (en_core_web_trf) | Tokenization, POS, dependency parsing, NER |
 | Tokenization | tiktoken | GPT token estimates (cl100k_base) |
-| Embeddings | sentence-transformers | Conversation-level embeddings |
+| Embeddings | sentence-transformers | BERTopic embeddings for topic modeling |
 | Topic Modeling | BERTopic + HDBSCAN + UMAP | Unsupervised thematic clustering |
 | Sentiment | vaderSentiment | Coarse sentiment baseline |
 | Word Frequency | wordfreq | Baseline lexical frequency for vocab transfer detection |
-| Change Detection | ruptures | PELT algorithm for inflection detection |
 | Visualization | plotly, matplotlib | Interactive timelines + static figures |
 | LLM | anthropic SDK | Claude Batch API for qualitative classification |
 
@@ -161,5 +160,3 @@ This project is the foundation for a broader research direction: **recursive mea
 "Memory is not a recording, its a rewriting that never stops" -Frederic Bartlett
 
 ---
-
-The technical specification for this project, including detailed schemas, edge case taxonomy, bias mitigation framework, LLM classification protocol with calibration procedures, and resource estimates, is in [`docs/technical_specification.md`](docs/technical_specification.md).

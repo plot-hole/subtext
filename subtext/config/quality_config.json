@@ -16,7 +16,11 @@
         "gpt4o_launch": "2024-05-13",
         "gpt4o_mini_launch": "2024-07-18",
         "o1_launch": "2024-09-12",
-        "o3_mini_launch": "2025-01-31"
+        "o3_mini_launch": "2025-01-31",
+        "gpt4_1_launch": "2025-04-14",
+        "gpt5_launch": "2025-06-15",
+        "gpt5_2_launch": "2025-09-01",
+        "gpt5_4_launch": "2026-03-01"
     },
     "default_system_prompts_fingerprints": [
         "You are ChatGPT",

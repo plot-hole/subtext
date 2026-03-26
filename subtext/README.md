@@ -123,7 +123,7 @@ The researcher-subject overlap is the primary methodological risk.
 | **Confirmation bias** | Automated analyses run before subjective interpretation. | Active — pipeline produces classifications and distributions before any manual review. |
 | **Cherry-picking** | Full distributions reported, not selected examples. | Active — every module outputs complete distributions. |
 | **Third-party privacy** | NER-based PII scan before any data leaves local environment. | Active — `06_pii_scan.py`. |
-| **Temporal confounds** | Conversations tagged by model era (GPT-3.5 → GPT-4 → GPT-4o); model_era included as covariate. | Active — `model_era` column present in 8 scripts. |
+| **Temporal confounds** | Conversations tagged by model era (o3 → GPT-4.1 → GPT-5); `model_era` included as covariate in 8 scripts. | Active — corpus spans 3 model eras with meaningful capability transitions. |
 
 ### Evaluation
 

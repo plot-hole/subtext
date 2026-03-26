@@ -166,6 +166,10 @@ def main():
         "gpt4o": pd.Timestamp(era_bounds["gpt4o_launch"], tz="UTC"),
         "o1": pd.Timestamp(era_bounds["o1_launch"], tz="UTC"),
         "o3_mini": pd.Timestamp(era_bounds["o3_mini_launch"], tz="UTC"),
+        "gpt4_1": pd.Timestamp(era_bounds["gpt4_1_launch"], tz="UTC"),
+        "gpt5": pd.Timestamp(era_bounds["gpt5_launch"], tz="UTC"),
+        "gpt5_2": pd.Timestamp(era_bounds["gpt5_2_launch"], tz="UTC"),
+        "gpt5_4": pd.Timestamp(era_bounds["gpt5_4_launch"], tz="UTC"),
     }
 
     def assign_era(ts):
@@ -181,8 +185,16 @@ def main():
             return "gpt-4o"
         elif ts < era_dates["o3_mini"]:
             return "o1-era"
+        elif ts < era_dates["gpt4_1"]:
+            return "gpt-4o"
+        elif ts < era_dates["gpt5"]:
+            return "gpt-4.1"
+        elif ts < era_dates["gpt5_2"]:
+            return "gpt-5"
+        elif ts < era_dates["gpt5_4"]:
+            return "gpt-5.2"
         else:
-            return "o3-era"
+            return "gpt-5.4"
 
     convos["model_era"] = convos["created_at"].apply(assign_era).astype("category")
     print(f"  Model era distribution: {convos['model_era'].value_counts().to_dict()}")

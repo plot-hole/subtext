@@ -116,15 +116,14 @@ chatgpt_export.zip
 
 ### Validity Controls
 
-The researcher-subject overlap is the primary methodological risk. These controls are built into the pipeline:
+The researcher-subject overlap is the primary methodological risk.
 
-| Risk | Mitigation |
-|------|------------|
-| **Confirmation bias** | Automated analyses run before subjective interpretation. Pre-registration (`hypotheses.json`) written before Phase 2. |
-| **Cherry-picking** | Full distributions reported, not selected examples. Random stratified sampling (seed=42) for qualitative deep-dives. |
-| **Avoidance bias** | Automated coverage report flags topics with zero manual annotations. |
-| **Third-party privacy** | NER-based PII scan before any data leaves local environment. |
-| **Temporal confounds** | Conversations tagged by model era (GPT-3.5 → GPT-4 → GPT-4o); model_era included as covariate in longitudinal analysis. |
+| Risk | Mitigation | Status |
+|------|------------|--------|
+| **Confirmation bias** | Automated analyses run before subjective interpretation. | Active — pipeline produces classifications and distributions before any manual review. |
+| **Cherry-picking** | Full distributions reported, not selected examples. | Active — every module outputs complete distributions. |
+| **Third-party privacy** | NER-based PII scan before any data leaves local environment. | Active — `06_pii_scan.py`. |
+| **Temporal confounds** | Conversations tagged by model era (GPT-3.5 → GPT-4 → GPT-4o); model_era included as covariate. | Active — `model_era` column present in 8 scripts. |
 
 ### Evaluation
 

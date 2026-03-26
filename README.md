@@ -114,10 +114,6 @@ chatgpt_export.zip
 
 ## Methodology
 
-I'm including decisions and tradeoffs for posterity.
-
-Example: the first topic modeling run produced 27 topics whose top terms were all stopwords (`the`, `and`, `it`, `to`). Switching from raw conversation text to pre-generated summaries, adding stopword removal, and using KeyBERTInspired representations fixed it completely. That debugging process is documented in the notebook because it's more instructive than the clean output.
-
 ### Validity Controls
 
 The researcher-subject overlap is the primary methodological risk. These controls are built into the pipeline:

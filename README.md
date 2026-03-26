@@ -133,7 +133,7 @@ There is no ground truth for what a conversation means. Evaluation relies on thr
 | Signal | Method |
 |--------|--------|
 | **Stability** | Rerun analyses with different random seeds. If clusters hold, the structure is real. If they don't, it's noise. |
-| **External alignment** | The corpus spans known structural changes — GPT model transitions (3.5 → 4 → 4o) and independently documented events. These should surface as detectable shifts. |
+| **External alignment** | Comparison with manually maintained information sources. |
 | **Manual plausibility** | Stratified random samples (seed=42) from each cluster, read and evaluated. Qualitative spot-checking catches failures that metrics miss. |
 
 ---

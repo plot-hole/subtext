@@ -128,10 +128,13 @@ The researcher-subject overlap is the primary methodological risk. These control
 
 ### Evaluation
 
-There's no answer key for "the correct interpretation of a conversation." So evaluation checks three things:
-Stability — run the same analysis with different random seeds. If the topic model produces roughly the same clusters each time, the structure is real. If it changes dramatically between runs, it's fitting noise.
-Alignment with known events — the corpus spans a period that includes GPT model transitions (GPT-3.5 → GPT-4 → GPT-4o) and other independently documented events. These are known structural changes that should show up as detectable shifts. A manual record of partial information is also used as reference.
-Manual plausibility — pull random stratified samples from each cluster (seed=42 for reproducibility), read them, and ask: does this grouping make sense? Qualitative spot-checking catches obvious failures that quantitative metrics miss.
+There is no ground truth for what a conversation means. Evaluation relies on three signals:
+
+| Signal | Method |
+|--------|--------|
+| **Stability** | Rerun analyses with different random seeds. If clusters hold, the structure is real. If they don't, it's noise. |
+| **External alignment** | The corpus spans known structural changes — GPT model transitions (3.5 → 4 → 4o) and independently documented events. These should surface as detectable shifts. |
+| **Manual plausibility** | Stratified random samples (seed=42) from each cluster, read and evaluated. Qualitative spot-checking catches failures that metrics miss. |
 
 ---
 

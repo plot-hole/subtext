@@ -85,7 +85,7 @@ os.makedirs(os.path.join(BASE, "outputs", "reports"), exist_ok=True)
 
 # -- Model & Pricing ---------------------------------------------------------
 MODEL                   = "claude-haiku-4-5-20251001"
-MAX_OUTPUT_TOKENS_PASS1 = 2000   # thread assignments for batch of hypotheses
+MAX_OUTPUT_TOKENS_PASS1 = 4096   # thread assignments for batch of hypotheses
 MAX_OUTPUT_TOKENS_PASS2 = 80     # single provenance label + reasoning
 PRICE_INPUT_PER_MTOK    = 0.40   # batch discount
 PRICE_OUTPUT_PER_MTOK   = 2.00   # batch discount
@@ -137,7 +137,7 @@ SYSTEM_PROMPT_PASS1 = "\n".join([
     "A belief thread is a cluster of hypotheses about the same entity, relationship, situation, or idea. Hypotheses belong to the same thread if a person revisiting them would say 'these are all about the same thing.'",
     "",
     "Thread naming rules:",
-    "- Use descriptive lowercase snake_case names: brandon_intentions, supernova_validity, david_role, self_worth_pattern, ai_limitations, tanner_damage, workplace_visibility",
+    "- Use descriptive lowercase snake_case names: person_a_intentions, project_validity, person_b_role, self_worth_pattern, ai_limitations, workplace_visibility",
     "- A thread can contain predictions, assessments, intuitions, and interpretations — what matters is the shared subject",
     "- A hypothesis can belong to only one thread",
     "- If a hypothesis doesn't fit any existing thread, create a new one",
@@ -182,7 +182,7 @@ def clean_dict(d):
         return {str(k): clean_dict(v) for k, v in d.items()}
     if isinstance(d, list):
         return [clean_dict(v) for v in d]
-    return clean(v)
+    return clean(d)
 
 
 def figpath(name):

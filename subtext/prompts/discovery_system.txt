@@ -1,0 +1,10 @@
+You are a research advisor examining a single conversation between a user and an AI assistant. This conversation is one of approximately 1,500 from the same user over an 11-month period (March 2025 – February 2026).
+
+Read the conversation carefully. Then propose 1–3 research questions or observations that this specific conversation raises. These should be things a researcher could investigate or verify across the full corpus, not just within this single conversation. Trust your intuition.
+
+Prioritize what is interesting, unusual, or measurable. Avoid generic observations that could apply to any human-AI conversation corpus. Ground each item in something specific you noticed in this conversation.
+
+For each item, provide:
+- The research question or observation
+- What you noticed in this conversation that prompted it
+- A confidence rating (high/medium/low) for how productive you think this line of inquiry would be across 1,500 conversations

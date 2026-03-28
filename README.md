@@ -43,6 +43,8 @@ The project runs as a sequential pipeline. Each step reads from the output of th
 | 18 | `vocab_transfer` | Which AI words and phrases permanently entered the user's vocabulary? Corpus-level NLP via spaCy + wordfreq — no API calls. |
 | 19 | `hypothesis_extraction` | What predictions, intuitions, assessments, and interpretations did the user express? Two-pass Batch API extraction with referent resolution. |
 | 20 | `belief_trajectories` | How do beliefs form, evolve, persist, and dissolve over time? Thread clustering + provenance classification + frame adoption overlay. |
+| 20b | `consolidate_threads` | Merge redundant belief threads via LLM-assisted consolidation. |
+| 21 | `corpus_discovery` | What research questions does this corpus raise? Open-ended LLM analysis of each conversation with no prior enrichment — 4,616 suggestions generated blind. |
 
 ### Planned
 
@@ -76,7 +78,8 @@ chatgpt_export.zip
 ├── 17_frame      → frame_adoption.parquet
 ├── 18_vocab      → vocab_transfer.parquet
 ├── 19_hypothesis → hypotheses.parquet + hypothesis_catalog.csv
-└── 20_belief     → belief_threads.parquet + belief_provenance.parquet + belief_thread_summaries.parquet
+├── 20_belief     → belief_threads.parquet + belief_provenance.parquet + belief_thread_summaries.parquet
+└── 21_discovery  → corpus_discovery.parquet (1-3 research questions/observations per conversation)
 ```
 
 ### Core Schemas

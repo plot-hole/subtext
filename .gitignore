@@ -43,8 +43,7 @@ subtext/outputs/
 # Spec docs (not shipping for now)
 PHASE1_DATA_INGESTION.md
 PHASE2_DATA_QUALITY.md
-MODULE_3_1_*.md
-module_3_2_*.md
+MODULE_*.md
 
 # Misc
 unicode_check.txt

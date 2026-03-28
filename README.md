@@ -4,7 +4,7 @@
 
 research log: https://www.notion.so/32c77cb7d15d81e88606ecec5566e59f
 
-This project applies computational linguistics to a personal corpus of conversational data collected over 11 months (March 2025 – February 2026). The corpus includes AI dialogue, human conversation transcripts, technical problem-solving, creative writing, philosophical inquiry, and ordinary searching. The analysis spans structural, thematic, and longitudinal dimensions.
+This project applies computational linguistics to a personal corpus of conversational data collected over 11 months (March 2025 – February 2026). AI conversations serve as rich sites for identity work, strategic planning, and emotional processing that extend far beyond typical task-oriented interactions. The analysis spans structural, thematic, and longitudinal dimensions.
 
 ---
 

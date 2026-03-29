@@ -23,6 +23,9 @@ build/
 *.key
 *.pem
 
+# Entity config (contains real names)
+subtext/config/known_entities.json
+
 # OS
 .DS_Store
 Thumbs.db

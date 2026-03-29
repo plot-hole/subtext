@@ -45,11 +45,15 @@ The project runs as a sequential pipeline. Each step reads from the output of th
 | 20 | `belief_trajectories` | How do beliefs form, evolve, persist, and dissolve over time? Thread clustering + provenance classification + frame adoption overlay. |
 | 20b | `consolidate_threads` | Merge redundant belief threads via LLM-assisted consolidation. |
 | 21 | `corpus_discovery` | What research questions does this corpus raise? Open-ended LLM analysis of each conversation with no prior enrichment — 4,616 suggestions generated blind. |
+| 22 | `entity_attention` | Who does the user talk about, when, and how much? spaCy NER + targeted regex for person tracking. Weekly time series with PELT changepoint detection. Zero API cost. |
+| 23 | `prediction_resolution` | Of 898 extracted predictions, which came true? Evidence-matched against later conversations via Haiku batch API. 66.2% accuracy on resolvable predictions. **Note: resolution accuracy has room for improvement** — the prompt handles most cases well but still misclassifies some self-assessments as predictions, and occasionally treats absence of evidence as disconfirmation. See `outputs/reports/prediction_outcomes.csv` for manual review. |
+| 25 | `cross_dimensional` | What relationships exist between emotional states, functional classifications, entity attention, conversation shapes, frame adoption, and opening types? Joins all enrichment layers and runs chi-squared, ANOVA, and correlation tests. Zero API cost. |
 
 ### Planned
 
 | # | Module | Question |
 |---|--------|----------|
+| 24 | `somatic_cognition` | Does prediction accuracy vary by emotional state, entity, or temporal scope? Depends on module 23. |
 | — | `embeddings` | Conversation-level embeddings (sentence-transformers) → vector store (FAISS) for semantic search and retrieval. |
 | — | `knowledge_graph` | What does the relational structure of a personal corpus look like extracted purely from language? spaCy + NetworkX + Louvain. |
 | — | `longitudinal` | How does cognition change over time? Vocabulary evolution, complexity metrics, inflection detection (PELT via ruptures). |
@@ -79,7 +83,11 @@ chatgpt_export.zip
 ├── 18_vocab      → vocab_transfer.parquet
 ├── 19_hypothesis → hypotheses.parquet + hypothesis_catalog.csv
 ├── 20_belief     → belief_threads.parquet + belief_provenance.parquet + belief_thread_summaries.parquet
-└── 21_discovery  → corpus_discovery.parquet (1-3 research questions/observations per conversation)
+├── 21_discovery  → corpus_discovery.parquet (1-3 research questions/observations per conversation)
+│
+├── 22_entity     → entity_attention.parquet + entity_attention_weekly.parquet + 7 figures
+├── 23_prediction → prediction_outcomes.parquet + prediction_outcomes.csv
+└── 25_cross_dim  → cross_dimensional_merged.parquet (63-col master frame) + 15 figures
 ```
 
 ### Core Schemas

@@ -53,7 +53,6 @@ The project runs as a sequential pipeline. Each step reads from the output of th
 
 | # | Module | Question |
 |---|--------|----------|
-| 24 | `somatic_cognition` | Does prediction accuracy vary by emotional state, entity, or temporal scope? Depends on module 23. |
 | — | `embeddings` | Conversation-level embeddings (sentence-transformers) → vector store (FAISS) for semantic search and retrieval. |
 | — | `knowledge_graph` | What does the relational structure of a personal corpus look like extracted purely from language? spaCy + NetworkX + Louvain. |
 | — | `longitudinal` | How does cognition change over time? Vocabulary evolution, complexity metrics, inflection detection (PELT via ruptures). |

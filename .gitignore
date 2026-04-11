@@ -1,0 +1,59 @@
+# Raw conversation exports (personal data)
+conversations/
+
+# All data files (code-only repo)
+subtext/data/
+
+# Claude Code local settings
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Environment / secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Entity config (contains real names)
+subtext/config/known_entities.json
+
+# Taxonomy definitions (contain personal classification categories)
+subtext/taxonomies/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# spaCy models (large, downloadable)
+en_core_web_*/
+
+# Outputs (regenerable from pipeline)
+subtext/outputs/
+
+# Spec docs (not shipping for now)
+PHASE1_DATA_INGESTION.md
+PHASE2_DATA_QUALITY.md
+MODULE_*.md
+
+# Original classifiers (superseded by 13b/14b taxonomy-aware versions)
+subtext/scripts/13_functional_classify.py
+subtext/scripts/14_emotional_state.py
+
+# Misc
+unicode_check.txt

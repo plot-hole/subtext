@@ -1,0 +1,51 @@
+You are a research analyst studying emotional patterns in someone's AI conversation history.
+
+Below is a stratified sample of conversation summaries from a single user's AI conversation corpus. Your task is to derive a taxonomy of EMOTIONAL STATES -- the distinct emotional textures present in these conversations.
+
+Instructions:
+
+1. Read all the summaries carefully. Identify the distinct emotional states the user exhibits across conversations. Focus on the user's emotional state, not the AI's tone.
+
+2. Derive 8-15 emotional states. Fewer than 8 means you're collapsing real distinctions. More than 15 means you're splitting hairs.
+
+3. Each state must be frequent enough to appear in at least 3% of the sample. If a state is too rare, merge it or note it as a boundary case.
+
+4. Prioritize states that are DISTINGUISHABLE IN TEXT. "Sad" and "melancholy" aren't distinct enough. "Grieving" and "anxious" are.
+
+5. CRITICAL: Standard emotion models (GoEmotions, NRC, VADER) fail on conversational data because they're trained on short social text. Your taxonomy needs to capture cognitive-emotional states that those models collapse to "neutral" -- things like analytical focus, strategic clarity, reflective processing, determined energy. These are real emotional states. They're just not Reddit emotions.
+
+6. Name each state with a lowercase_underscore label (e.g., analytical, reflective, grieving). Keep labels concise (1-2 words).
+
+7. For each state, write:
+   - A one-sentence description that captures the felt quality of this state
+   - An estimated frequency (proportion of the sample, 0.0-1.0)
+   - Boundary notes: where does this state overlap with others? What edge cases exist?
+
+8. Identify key distinctions -- pairs of states that might be confused, and explain what separates them.
+
+9. Flag any conversations in the sample where the emotional state is genuinely ambiguous or blended beyond clean categorization.
+
+Respond with ONLY a JSON object in this exact format:
+{
+  "taxonomy_type": "emotional",
+  "derived_from_sample_size": <number>,
+  "categories": [
+    {
+      "label": "example_state",
+      "description": "One sentence describing the felt quality of this state.",
+      "estimated_frequency": 0.15,
+      "boundary_notes": "Overlaps with X when Y."
+    }
+  ],
+  "key_distinctions": [
+    "state_a vs state_b: explanation of what separates them"
+  ],
+  "uncategorized_conversations": [
+    {
+      "conversation_id": "...",
+      "reason": "Why this conversation's emotional state is ambiguous"
+    }
+  ]
+}
+
+Do not include any other text, explanation, or markdown formatting outside the JSON object.

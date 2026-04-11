@@ -1,0 +1,7 @@
+pandas>=2.1
+pyarrow>=14.0
+tiktoken>=0.5
+matplotlib>=3.8
+seaborn>=0.13
+plotly>=5.18
+tqdm>=4.66

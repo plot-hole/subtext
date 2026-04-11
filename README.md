@@ -35,8 +35,8 @@ The project runs as a sequential pipeline. Each step reads from the output of th
 | 10 | `opening_taxonomy` | How do conversations begin? Classify first user message — question, command, statement, fragment, code — via spaCy POS tagging. |
 | 11 | `topics` | What latent thematic structure exists, and how do themes shift over time? BERTopic + sentence-transformers + UMAP + HDBSCAN. |
 | 12 | `summarize` | Compression layer — conversation-level summaries for downstream analysis. |
-| 13 | `functional_classify` | What is the user doing in each conversation? Taxonomy-aware functional classification via Claude Haiku Batch API. Loads categories from JSON via `--taxonomy-path`. |
-| 14 | `emotional_state` | What emotional states appear across conversations? Taxonomy-aware classification (compared against a GoEmotions baseline in step 15). Loads categories from JSON via `--taxonomy-path`. |
+| 13b | `functional_classify` | What is the user doing in each conversation? Taxonomy-aware functional classification via Claude Haiku Batch API. Loads categories from JSON via `--taxonomy-path`. |
+| 14b | `emotional_state` | What emotional states appear across conversations? Taxonomy-aware classification (compared against a GoEmotions baseline in step 15). Loads categories from JSON via `--taxonomy-path`. |
 | 15 | `goemotions_baseline` | Local GoEmotions transformer baseline — zero-API-cost emotion detection for comparison with LLM classifications. |
 | 16 | `length_weight_analysis` | How do count-based vs message-weighted distributions differ? Reveals categories inflated by short conversations. |
 | 17 | `frame_adoption` | How does the user respond to AI framing? Message-level classification of adopt/extend/redirect/reject/ignore/steer. |
@@ -149,7 +149,7 @@ The default classification taxonomies (12 functional categories, 12 emotional st
 
 **Stage 3 — Classification:** After human review and approval, the taxonomy-aware classifiers (`13b`, `14b`) load categories from the approved JSON file via `--taxonomy-path` and run Batch API classification as usual.
 
-All taxonomy JSON files live in `subtext/taxonomies/`. The shared module `subtext/taxonomy.py` handles loading, validation, and dynamic prompt generation.
+Taxonomy JSON files are stored locally in `subtext/taxonomies/` (gitignored). The shared module `subtext/taxonomy.py` handles loading, validation, and dynamic prompt generation.
 
 ---
 

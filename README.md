@@ -93,6 +93,12 @@ Conversations cross-tabulated by primary emotional state (`14b`) and primary fun
 
 Each point is one conversation, embedded from its summary (`12_summarize`) with `all-mpnet-base-v2`, projected to 2D with UMAP (cosine), and clustered with HDBSCAN on the 2D coordinates (min cluster size 15). HDBSCAN found 36 clusters; gray points (26.5%) are unclustered. Colors repeat across clusters.
 
+### GoEmotions baseline vs. custom taxonomy (`15_goemotions_baseline`)
+
+![GoEmotions baseline compared with the custom emotional-state taxonomy](assets/goemotions_comparison.png)
+
+`SamLowe/roberta-base-go_emotions` (28 labels, run locally) applied to the same 1,573 conversation summaries, compared with the emotional states assigned in `14b`. GoEmotions labels 1,504 summaries `neutral`, so top-label agreement is 1.3% (soft agreement 6.3%; Cohen's κ = 0.26 on the 54 conversations where both labels map to a shared category). Rather than validating the custom taxonomy, the comparison shows the limits of a general-purpose emotion model trained on Reddit comments: it has no equivalent for the analytical and strategic states (37% of conversations) and labels nearly everything else `neutral`.
+
 ---
 
 ## Data Architecture

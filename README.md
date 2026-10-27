@@ -61,6 +61,28 @@ The project runs as a sequential pipeline. Each step reads from the output of th
 
 ---
 
+## Sample Results
+
+Aggregate outputs from running the pipeline on the full corpus. No message text is shown.
+
+### Conversation shapes (`09_conversation_shapes`)
+
+![Conversation shape cluster gallery](assets/conversation_shapes.png)
+
+Conversations clustered by how normalized message length changes across each tenth of the conversation (DTW + k-means). Thin lines are sample conversations; the bold line is the cluster centroid.
+
+### Frame adoption (`17_frame_adoption`)
+
+![Frame adoption distribution](assets/frame_adoption_distribution.png)
+
+How each user message responds to the AI's framing in the previous turn: adopt, extend, redirect, reject, ignore, or steer. LLM-classified, excluding conversation openers.
+
+![Message length by frame adoption type](assets/frame_adoption_by_length.png)
+
+User message length by frame adoption type. Messages that ignore the AI's framing are the longest and most variable.
+
+---
+
 ## Data Architecture
 
 ```

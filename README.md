@@ -65,12 +65,6 @@ The project runs as a sequential pipeline. Each step reads from the output of th
 
 Aggregate outputs from running the pipeline on the full corpus. No message text is shown.
 
-### Conversation shapes (`09_conversation_shapes`)
-
-![Conversation shape cluster gallery](assets/conversation_shapes.png)
-
-Conversations clustered by how normalized message length changes across each tenth of the conversation (DTW + k-means). Thin lines are sample conversations; the bold line is the cluster centroid.
-
 ### Frame adoption (`17_frame_adoption`)
 
 ![Frame adoption distribution](assets/frame_adoption_distribution.png)

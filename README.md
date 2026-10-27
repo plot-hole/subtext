@@ -75,11 +75,23 @@ Conversations clustered by how normalized message length changes across each ten
 
 ![Frame adoption distribution](assets/frame_adoption_distribution.png)
 
-How each user message responds to the AI's framing in the previous turn: adopt, extend, redirect, reject, ignore, or steer. LLM-classified, excluding conversation openers.
+How each user message responds to the AI's framing in the previous turn: adopt, extend, redirect, reject, ignore, or steer. LLM-classified, excluding conversation openers (n = 17,827).
 
 ![Message length by frame adoption type](assets/frame_adoption_by_length.png)
 
-User message length by frame adoption type. Messages that ignore the AI's framing are the longest and most variable.
+User message length by frame adoption type. Replies that extend the AI's framing are the longest (median 36 tokens, mean 209). Redirect, reject, ignore, and steer replies are short (medians 7–15 tokens); the high means for adopt and ignore come from a small number of very long messages.
+
+#### Influence profile
+
+| Response pattern | Labels | Share of replies |
+|------------------|--------|------------------|
+| Follows the AI's framing | adopt + extend | 38.9% |
+| Pushes back on it | redirect + reject | 33.1% |
+| Sets own direction | steer + ignore | 27.9% |
+
+![AI frame adoption over time](assets/frame_adoption_over_time.png)
+
+The share of replies that adopt or extend the AI's framing rose over the 12 months, from 36.4% in the first six months to 45.1% in the last six (linear fit across monthly rates: +1.52 percentage points per month, p = 0.001, R² = 0.66). Two caveats: the period overlaps with several ChatGPT model upgrades, so the trend may reflect changes in the models as well as the user, and monthly volume fell from a peak of about 2,900 replies (April 2025) to under 400 (February 2026), so later months are noisier.
 
 ### Emotion × function (`25_cross_dimensional`)
 

@@ -81,6 +81,12 @@ How each user message responds to the AI's framing in the previous turn: adopt, 
 
 User message length by frame adoption type. Messages that ignore the AI's framing are the longest and most variable.
 
+### Emotion × function (`25_cross_dimensional`)
+
+![Emotion by function heatmap](assets/emotion_function_heatmap.png)
+
+Conversations cross-tabulated by primary emotional state (`14b`) and primary function (`13b`). Categories with fewer than 10 conversations (here, `coding`) are omitted. The two dimensions are moderately associated: χ² = 1776.8, df = 100, p < 0.001, Cramér's V = 0.34, n = 1,562.
+
 ---
 
 ## Data Architecture

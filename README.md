@@ -87,6 +87,12 @@ User message length by frame adoption type. Messages that ignore the AI's framin
 
 Conversations cross-tabulated by primary emotional state (`14b`) and primary function (`13b`). Categories with fewer than 10 conversations (here, `coding`) are omitted. The two dimensions are moderately associated: χ² = 1776.8, df = 100, p < 0.001, Cramér's V = 0.34, n = 1,562.
 
+### Semantic clusters (`26_embeddings`)
+
+![Semantic clusters of conversations](assets/semantic_clusters.png)
+
+Each point is one conversation, embedded from its summary (`12_summarize`) with `all-mpnet-base-v2`, projected to 2D with UMAP (cosine), and clustered with HDBSCAN on the 2D coordinates (min cluster size 15). HDBSCAN found 36 clusters; gray points (26.5%) are unclustered. Colors repeat across clusters.
+
 ---
 
 ## Data Architecture

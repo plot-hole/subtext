@@ -77,15 +77,9 @@ User message length by frame adoption type. Replies that extend the AI's framing
 
 #### Influence profile
 
-| Response pattern | Labels | Share of replies |
-|------------------|--------|------------------|
-| Follows the AI's framing | adopt + extend | 38.9% |
-| Pushes back on it | redirect + reject | 33.1% |
-| Sets own direction | steer + ignore | 27.9% |
+![Frame adoption influence profile dashboard](assets/influence_dashboard.png)
 
-![AI frame adoption over time](assets/frame_adoption_over_time.png)
-
-The share of replies that adopt or extend the AI's framing rose over the 12 months, from 36.4% in the first six months to 45.1% in the last six (linear fit across monthly rates: +1.52 percentage points per month, p = 0.001, R² = 0.66). Two caveats: the period overlaps with several ChatGPT model upgrades, so the trend may reflect changes in the models as well as the user, and monthly volume fell from a peak of about 2,900 replies (April 2025) to under 400 (February 2026), so later months are noisier.
+Summary of frame adoption across LLM-classified replies, excluding conversation openers.
 
 ### Emotion × function (`25_cross_dimensional`)
 

@@ -69,7 +69,7 @@ Aggregate outputs from running the pipeline on the full corpus. No message text 
 
 ![Frame adoption distribution](assets/frame_adoption_distribution.png)
 
-How each user message responds to the AI's framing in the previous turn: adopt, extend, redirect, reject, ignore, or steer. LLM-classified, excluding conversation openers (n = 17,827).
+How each user message responds to the AI's framing in the previous turn: adopt, extend, redirect, reject, ignore, or steer. LLM-classified, excluding conversation openers (n = 17,827). Short replies (under 20 tokens) are included, and many of them are brief instructions, which is why `steer` is large.
 
 ![Message length by frame adoption type](assets/frame_adoption_by_length.png)
 
